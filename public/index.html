@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FridgeRescue — Turn what's about to go bad into tonight's dinner</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="logo">🥬 FridgeRescue</div>
+    <h1>Turn what's about to go bad<br>into tonight's dinner.</h1>
+    <p class="tagline">Add what's in your fridge and when it expires. FridgeRescue ranks real recipes by how much food they save — most urgent ingredients first — so dinner solves your food waste, not the other way around.</p>
+    <div class="stats" id="stats">
+      <div class="stat"><span class="stat-num" id="stat-rescued">0</span><span class="stat-label">ingredients rescued</span></div>
+      <div class="stat"><span class="stat-num" id="stat-meals">0</span><span class="stat-label">meals cooked</span></div>
+      <div class="stat"><span class="stat-num" id="stat-saved">$0</span><span class="stat-label">est. saved vs. tossing*</span></div>
+    </div>
+    <p class="fineprint">*Rough estimate: $3 per rescued ingredient. The real win is dinner.</p>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="panel pantry-panel" aria-label="Your fridge">
+    <h2>🧊 What's in your fridge?</h2>
+    <form id="add-form" class="add-form">
+      <input id="ing-name" type="text" placeholder="Ingredient — try spinach, eggs, rice…" autocomplete="off" required>
+      <label class="days-label">days left
+        <input id="ing-days" type="number" min="0" max="60" value="2">
+      </label>
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+    <div class="quick-row">
+      <button class="btn btn-ghost" id="demo-btn" type="button">Load a real fridge (demo)</button>
+      <button class="btn btn-ghost" id="clear-btn" type="button">Clear all</button>
+    </div>
+    <ul id="pantry-list" class="pantry-list"></ul>
+    <p id="pantry-empty" class="empty-note">Your fridge is empty here. Add a few things — or load the demo fridge — and watch dinner appear.</p>
+
+    <h3 class="filters-title">Filters</h3>
+    <div class="filters">
+      <label>Diet
+        <select id="filter-diet">
+          <option value="any">Any</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="gluten-free">Gluten-free</option>
+        </select>
+      </label>
+      <label>Max time
+        <select id="filter-time">
+          <option value="">Any</option>
+          <option value="15">≤ 15 min</option>
+          <option value="20">≤ 20 min</option>
+          <option value="30">≤ 30 min</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="panel results-panel" aria-label="Recipe matches">
+    <h2>🍽️ Tonight's rescue plan</h2>
+    <p id="results-note" class="results-note"></p>
+    <div id="recipe-list" class="recipe-list"></div>
+    <p id="results-empty" class="empty-note">No matches yet. Recipes appear as soon as something in your fridge matches — even one ingredient is a start.</p>
+  </section>
+</main>
+
+<dialog id="recipe-dialog">
+  <div class="dialog-body">
+    <button class="dialog-close" id="dialog-close" aria-label="Close">✕</button>
+    <h2 id="d-name"></h2>
+    <p id="d-blurb" class="d-blurb"></p>
+    <div class="d-meta" id="d-meta"></div>
+    <h3>You have</h3>
+    <p id="d-have" class="chip-row"></p>
+    <h3 id="d-missing-title">You'll still need</h3>
+    <p id="d-missing" class="chip-row"></p>
+    <h3>Steps</h3>
+    <ol id="d-steps"></ol>
+    <button class="btn btn-primary btn-cook" id="d-cook">✓ I cooked this — rescue those ingredients</button>
+    <p class="cook-note">Cooking removes the used ingredients from your fridge and adds them to your rescued count.</p>
+  </div>
+</dialog>
+
+<footer>
+  <p>FridgeRescue — built for NextSpark Hacks. Matching is 100% local and explainable: no account, no tracking, no API key. Score = ingredient coverage × urgency of what expires first.</p>
+</footer>
+
+<script src="recipes.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
